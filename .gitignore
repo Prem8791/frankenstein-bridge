@@ -1,0 +1,24 @@
+# Private signing material
+private-signing/
+*.pk8
+*.pem
+*.jks
+*.keystore
+
+# Build artifacts
+artifacts/
+
+# Gcloud command artifacts
+--/
+--project/
+--zone/
+compute/
+customrom-501702/
+gcloud/
+scp/
+us-south1-a/
+
+# OS files
+*.log
+Thumbs.db
+.DS_Store
