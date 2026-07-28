@@ -1,0 +1,63 @@
+package {
+    default_applicable_licenses: ["frameworks_base_license"],
+}
+
+aidl_interface {
+    name: "frankenstein-bridge-aidl",
+    srcs: ["com/android/internal/os/frankenstein/*.aidl"],
+    local_include_dir: ".",
+    unstable: false,
+    frozen: true,
+    backend: {
+        java: {
+            enabled: true,
+            platform_apis: true,
+        },
+        cpp: {
+            enabled: false,
+        },
+        ndk: {
+            enabled: false,
+        },
+        rust: {
+            enabled: false,
+        },
+    },
+    versions_with_info: [
+        {
+            version: "1",
+            imports: [],
+        },
+    ],
+
+}
+
+aidl_interface {
+    name: "frankenstein-diag-aidl",
+    srcs: ["com/android/internal/os/frankenstein/diag/*.aidl"],
+    local_include_dir: ".",
+    unstable: false,
+    frozen: true,
+    backend: {
+        java: {
+            enabled: true,
+            platform_apis: true,
+        },
+        cpp: {
+            enabled: false,
+        },
+        ndk: {
+            enabled: true,
+        },
+        rust: {
+            enabled: false,
+        },
+    },
+    versions_with_info: [
+        {
+            version: "1",
+            imports: [],
+        },
+    ],
+
+}

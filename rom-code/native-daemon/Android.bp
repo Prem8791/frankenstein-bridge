@@ -1,0 +1,50 @@
+package {
+    default_applicable_licenses: ["Android-Apache-2.0"],
+}
+
+cc_binary {
+    name: "frankenstein_diag",
+    srcs: [
+        "main.cpp",
+        "service.cpp",
+    ],
+    init_rc: ["frankenstein_diag.rc"],
+    relative_install_path: "frankenstein",
+    shared_libs: [
+        "frankenstein-diag-aidl-V1-ndk",
+        "libbase",
+        "libbinder_ndk",
+        "libcutils",
+        "liblog",
+        "libselinux",
+    ],
+    cflags: [
+        "-Wall",
+        "-Werror",
+        "-Wextra",
+    ],
+    cpp_std: "gnu++20",
+}
+
+cc_fuzz {
+    name: "frankenstein_diag_fuzzer",
+    defaults: ["service_fuzzer_defaults"],
+    srcs: [
+        "fuzzer.cpp",
+        "service.cpp",
+    ],
+    static_libs: [
+        "frankenstein-diag-aidl-V1-ndk",
+    ],
+    shared_libs: [
+        "libbase",
+        "libbinder_ndk",
+        "libcutils",
+        "liblog",
+        "libselinux",
+    ],
+    cpp_std: "gnu++20",
+    fuzz_config: {
+        cc: ["android-security@google.com"],
+    },
+}
