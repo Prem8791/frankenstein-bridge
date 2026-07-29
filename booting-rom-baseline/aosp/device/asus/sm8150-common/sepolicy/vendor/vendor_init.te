@@ -1,0 +1,36 @@
+allow vendor_init cgroup:file getattr;
+allow vendor_init vendor_proc_camera:file rw_file_perms;
+allow vendor_init asus_laser_device:chr_file {ioctl open read write };
+allow vendor_init asus_sensors_device:chr_file rw_file_perms;
+
+allow vendor_init proc_watermark_scale_factor:file w_file_perms;
+
+set_prop(vendor_init, vendor_asus_sp_prop)
+
+get_prop(vendor_init, vendor_camera_prop)
+set_prop(vendor_init, vendor_camera_prop)
+
+get_prop(vendor_init, vendor_dts_audio_prop)
+set_prop(vendor_init, vendor_dts_audio_prop)
+
+get_prop(vendor_init, vendor_asus_prop)
+set_prop(vendor_init, vendor_asus_prop)
+
+get_prop(vendor_init, vendor_odm_tel_prop)
+set_prop(vendor_init, vendor_odm_tel_prop)
+
+set_prop(vendor_init, vendor_gx_fpd_prop)
+set_prop(vendor_init, vendor_health_prop)
+set_prop(vendor_init, vendor_thermal_prop)
+set_prop(vendor_init, vendor_wifi_prop)
+
+allow vendor_init exported_system_prop:property_service set;
+
+# Grip Sensor
+allow vendor_init proc_driver_grip_sensor:file write;
+set_prop(vendor_init, asus_dongle_prop)
+
+allow vendor_init default_prop:property_service set;
+allow vendor_init charger_prop:property_service set;
+allow vendor_init vendor_ims_prop:property_service set;
+allow vendor_init proc:lnk_file setattr;

@@ -1,0 +1,15 @@
+cc_library_shared {
+    name: "libwvhidl_compat",
+    vendor: true,
+    compile_multilib: "64",
+    srcs: ["cbs_compat.c"],
+    cflags: [
+        "-Wall",
+        "-Wextra",
+        "-Werror",
+    ],
+    stl: "none",
+    strip: {
+        keep_symbols: true,
+    },
+}

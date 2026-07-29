@@ -1,0 +1,7 @@
+service frankenstein_diag /system/bin/frankenstein/frankenstein_diag
+    class late_start
+    user system
+    group system log readproc
+    interface aidl com.android.internal.os.frankenstein.diag.IFrankensteinDiagnostic/default
+    task_profiles ServiceCapacityLow
+    restart_period 5

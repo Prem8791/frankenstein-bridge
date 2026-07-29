@@ -1,0 +1,46 @@
+#
+# Copyright (C) 2022 The LineageOS Project
+#
+# SPDX-License-Identifier: Apache-2.0
+#
+
+-include device/asus/sm8150-common/BoardConfigCommon.mk
+
+DEVICE_PATH := device/asus/I001D
+
+BUILD_BROKEN_CLANG_PROPERTY := true
+
+# Assertions
+TARGET_OTA_ASSERT_DEVICE := WW_I001D,I001D,ZS660KL
+
+# Kernel
+TARGET_KERNEL_CONFIG := vendor/I001D_defconfig
+TARGET_KERNEL_SOURCE := kernel/asus/I001D
+TARGET_FORCE_PREBUILT_KERNEL := true
+TARGET_PREBUILT_KERNEL := $(DEVICE_PATH)/prebuilt/kernel
+# Sepolicy build compatibility
+BOARD_GENFS_LABELS_VERSION := 202504
+BUILD_BROKEN_MISSING_REQUIRED_MODULES := true
+# Prebuilt DTBO
+BOARD_PREBUILT_DTBOIMAGE := $(DEVICE_PATH)/prebuilt/dtbo.img
+
+# Partitions
+BOARD_DTBOIMG_PARTITION_SIZE := 8388608
+BOARD_SYSTEMIMAGE_PARTITION_SIZE := 3758096384
+BOARD_USERDATAIMAGE_PARTITION_SIZE := 118112366592
+BOARD_VENDORIMAGE_PARTITION_SIZE := 1073741824
+BOARD_AVB_MAKE_VBMETA_IMAGE_ARGS += --flags 3
+
+# Properties
+TARGET_VENDOR_PROP += $(DEVICE_PATH)/vendor.prop
+TARGET_SYSTEM_PROP += $(DEVICE_PATH)/system.prop
+
+# Recovery
+TARGET_RECOVERY_FSTAB := $(DEVICE_PATH)/init/etc/fstab.qcom
+TARGET_RECOVERY_DEVICE_DIRS :=$(DEVICE_PATH)/recovery
+
+# Security patch level
+VENDOR_SECURITY_PATCH := 2022-01-01
+
+# Inherit the proprietary files
+include vendor/asus/I001D/BoardConfigVendor.mk

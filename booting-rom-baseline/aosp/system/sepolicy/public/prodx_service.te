@@ -1,0 +1,5 @@
+type prodx_authority_service, service_manager_type;
+type prodx_broker_service, service_manager_type;
+type prodx_audit_service, service_manager_type;
+type prodx_observation_service, service_manager_type;
+type prodx_extension_service, service_manager_type;

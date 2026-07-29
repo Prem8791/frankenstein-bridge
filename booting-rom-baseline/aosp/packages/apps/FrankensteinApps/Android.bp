@@ -1,0 +1,59 @@
+android_app {
+    name: "FrankensteinBroker",
+    srcs: [
+        "broker/src/main/java/**/*.java",
+        "broker-api/src/main/aidl/**/*.aidl",
+    ],
+    aidl: {
+        local_include_dirs: ["broker-api/src/main/aidl"],
+    },
+    manifest: "broker/src/main/AndroidManifest.xml",
+    platform_apis: true,
+    certificate: "platform",
+    privileged: true,
+    product_specific: true,
+    min_sdk_version: "36",
+    required: [
+        "privapp-permissions-com.frankenbridge.assistant.xml",
+        "default-permissions-com.frankenbridge.assistant.xml",
+    ],
+}
+
+prebuilt_etc {
+    name: "privapp-permissions-com.frankenbridge.assistant.xml",
+    product_specific: true,
+    src: "rom/permissions/privapp-permissions-com.frankenbridge.assistant.xml",
+    sub_dir: "permissions",
+    filename_from_src: true,
+}
+
+android_app {
+    name: "ProdXAssistant",
+    srcs: ["prodx-bootstrap/src/**/*.java"],
+    manifest: "prodx-bootstrap/AndroidManifest.xml",
+    resource_dirs: ["prodx-bootstrap/res"],
+    platform_apis: true,
+    certificate: "platform",
+    privileged: true,
+    product_specific: true,
+    min_sdk_version: "36",
+    required: [
+        "privapp-permissions-com.prodx.assistant.xml",
+    ],
+}
+
+prebuilt_etc {
+    name: "privapp-permissions-com.prodx.assistant.xml",
+    product_specific: true,
+    src: "rom/permissions/privapp-permissions-com.prodx.assistant.xml",
+    sub_dir: "permissions",
+    filename_from_src: true,
+}
+
+prebuilt_etc {
+    name: "default-permissions-com.frankenbridge.assistant.xml",
+    product_specific: true,
+    src: "rom/default-permissions/default-permissions-com.frankenbridge.assistant.xml",
+    sub_dir: "default-permissions",
+    filename_from_src: true,
+}

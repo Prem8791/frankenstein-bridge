@@ -1,0 +1,107 @@
+on early-boot
+    write /sys/bus/msm_subsys/devices/subsys0/restart_level RELATED
+    write /sys/bus/msm_subsys/devices/subsys1/restart_level RELATED
+    write /sys/bus/msm_subsys/devices/subsys2/restart_level RELATED
+    write /sys/bus/msm_subsys/devices/subsys3/restart_level RELATED
+    write /sys/bus/msm_subsys/devices/subsys4/restart_level RELATED
+    write /sys/bus/msm_subsys/devices/subsys5/restart_level RELATED
+    write /sys/bus/msm_subsys/devices/subsys6/restart_level RELATED
+    write /sys/bus/msm_subsys/devices/subsys7/restart_level RELATED
+    write /sys/bus/msm_subsys/devices/subsys8/restart_level RELATED
+    write /sys/bus/msm_subsys/devices/subsys9/restart_level RELATED
+    write /sys/bus/msm_subsys/devices/subsys10/restart_level RELATED
+    write /sys/bus/msm_subsys/devices/subsys11/restart_level RELATED
+
+on boot
+
+    # Goodix Fingerprint
+    chown system system /dev/goodix_fp
+
+    # Light Sensor
+    chown system system /sys/class/sensors/lsensor/adc
+    chown system system /sys/class/sensors/lsensor/cal
+    chown system system /sys/class/sensors/lsensor/read_reg
+    chown system system /sys/class/sensors/lsensor/selection
+    chown system system /sys/class/sensors/lsensor/switch
+    chown system system /sys/class/sensors/lsensor/write_reg
+
+    # Proximity Sensor
+    chown system system /sys/class/sensors/psensor/hi_cal
+    chown system system /sys/class/sensors/psensor/inf_cal
+    chown system system /sys/class/sensors/psensor/load_cal
+    chown system system /sys/class/sensors/psensor/low_cal
+    chown system system /sys/class/sensors/psensor/proxm
+    chown system system /sys/class/sensors/psensor/read_reg
+    chown system system /sys/class/sensors/psensor/selection
+    chown system system /sys/class/sensors/psensor/switch
+    chown system system /sys/class/sensors/psensor/write_reg
+
+    # Frgbsensor
+    chown system shell /sys/class/sensors/frgbsensor/switch
+
+    # Gestures
+    chown system system /proc/driver/dclick
+
+on property:sys.usb.config=adb && property:sys.usb.configfs=1
+    write /config/usb_gadget/g1/idVendor 0x0b05
+    write /config/usb_gadget/g1/idProduct 0x7770
+
+on property:sys.usb.config=mtp && property:sys.usb.configfs=1
+    write /config/usb_gadget/g1/idVendor 0x0b05
+    write /config/usb_gadget/g1/idProduct 0x7772
+
+on property:sys.usb.config=mtp,adb && property:sys.usb.configfs=1
+    write /config/usb_gadget/g1/idVendor 0x0b05
+    write /config/usb_gadget/g1/idProduct 0x7773
+
+on property:sys.usb.config=ptp && property:sys.usb.configfs=1
+    write /config/usb_gadget/g1/idVendor 0x0b05
+    write /config/usb_gadget/g1/idProduct 0x7776
+
+on property:sys.usb.config=ptp,adb && property:sys.usb.configfs=1
+    write /config/usb_gadget/g1/idVendor 0x0b05
+    write /config/usb_gadget/g1/idProduct 0x7777
+
+on property:sys.usb.config=rndis,none && property:sys.usb.configfs=1
+    write /config/usb_gadget/g1/idVendor 0x0b05
+    write /config/usb_gadget/g1/idProduct 0x7774
+
+on property:sys.usb.ffs.ready=1 && property:sys.usb.config=rndis,none,adb && property:sys.usb.configfs=1
+    write /config/usb_gadget/g1/idVendor 0x0b05
+    write /config/usb_gadget/g1/idProduct 0x7775
+
+on post-fs-data
+
+    # Goodix Fingerprint permissions
+    mkdir /data/vendor/goodix 0777 system system
+
+    # Proximity
+    write /sys/class/sensors/psensor/load_cal 1
+
+    # Asus Camera Motor
+    chmod 0777 /dev/asusMotoDrv
+    chmod 777 /data/vendor/camera
+    chmod 775 /mnt/vendor/persist
+
+    chown system camera /dev/asus2ndAccelSensor
+    chmod 0660 /dev/asus2ndAccelSensor
+    chown system camera /dev/asus2ndGyroSensor
+    chmod 0660 /dev/asus2ndGyroSensor
+    chown system camera /sys/class/icm206xx/gyro2_poll_delay
+    chmod 0664 /sys/class/icm206xx/gyro2_poll_delay
+    chown system camera /sys/class/icm206xx/accel2_poll_delay
+    chmod 0664 /sys/class/icm206xx/accel2_poll_delay
+
+service vendor.sensors-hal-2-0-multihal /vendor/bin/hw/android.hardware.sensors@2.0-service.multihal
+    override
+    class hal
+    user system
+    group system wakelock context_hub input
+    writepid /dev/cpuset/system-background/tasks
+    capabilities BLOCK_SUSPEND
+    rlimit rtprio 10 10
+
+# Health
+on boot
+    chmod 0660 /sys/class/power_supply/battery/input_suspend
+    chown system system /sys/class/power_supply/battery/input_suspend

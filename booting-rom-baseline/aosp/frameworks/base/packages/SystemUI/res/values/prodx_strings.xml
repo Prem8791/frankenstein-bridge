@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="prodx_confirmation_title">Confirm ProdX action</string>
+    <string name="prodx_confirmation_message">A protected action is requesting approval. Verify reference %1$s. Details from apps or models are intentionally not shown here.</string>
+    <string name="prodx_allow">Authenticate and allow</string>
+    <string name="prodx_deny">Authenticate and deny</string>
+    <string name="prodx_notification_channel">ProdX runtime</string>
+    <string name="prodx_active_title">ProdX action active</string>
+    <string name="prodx_active_message">A protected ProdX confirmation is in progress.</string>
+    <string name="prodx_emergency_stop">Emergency stop</string>
+</resources>

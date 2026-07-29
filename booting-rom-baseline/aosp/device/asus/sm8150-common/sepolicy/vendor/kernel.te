@@ -1,0 +1,10 @@
+# Battery
+allow kernel bat_file:dir rw_dir_perms;
+allow kernel bat_file:file create_file_perms;
+allow kernel log_file:dir search;
+
+# Factory files
+allow kernel factory_file:dir r_dir_perms;
+allow kernel factory_file:{file lnk_file} r_file_perms;
+
+allow kernel mnt_vendor_file:dir search;

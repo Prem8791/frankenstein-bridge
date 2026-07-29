@@ -1,0 +1,7 @@
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.frankenbridge.reachability.ordinary">
+    <application android:hasCode="true" android:label="Frankenstein Ordinary Probe">
+        <activity android:name="com.frankenbridge.reachability.ProbeActivity"
+            android:exported="true" android:excludeFromRecents="true"/>
+    </application>
+</manifest>

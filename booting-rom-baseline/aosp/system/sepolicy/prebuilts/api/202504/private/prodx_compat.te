@@ -1,0 +1,7 @@
+neverallow { prodx_broker prodx_audit prodx_observation prodx_extension } dev_type:chr_file { read write open ioctl };
+neverallow { prodx_broker prodx_audit prodx_observation prodx_extension } hal_service_type:service_manager find;
+neverallow { prodx_broker prodx_audit prodx_observation prodx_extension } system_server_service:service_manager { find add };
+neverallow prodx_broker prodx_registry_file:dir_file_class_set *;
+neverallow prodx_audit prodx_observation_queue_file:dir_file_class_set *;
+neverallow prodx_observation prodx_authorization_file:dir_file_class_set *;
+neverallow { prodx_broker prodx_audit prodx_observation prodx_extension } prodx_authorization_file:file { create write };

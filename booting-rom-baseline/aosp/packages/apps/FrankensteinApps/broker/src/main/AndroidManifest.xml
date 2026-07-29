@@ -1,0 +1,38 @@
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.frankenbridge.assistant">
+    <uses-permission android:name="android.permission.ACCESS_FRANKENSTEIN_BRIDGE" />
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
+    <uses-permission android:name="android.permission.BLUETOOTH_CONNECT" />
+    <uses-permission android:name="android.permission.BLUETOOTH_PRIVILEGED" />
+    <uses-permission android:name="android.permission.WRITE_SETTINGS" />
+    <uses-permission android:name="android.permission.INJECT_EVENTS" />
+
+    <application
+        android:allowBackup="false"
+        android:label="Frankenstein Broker"
+        android:supportsRtl="true">
+        <activity
+            android:name=".BrokerSetupActivity"
+            android:exported="true"
+            android:label="Broker Permissions">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="com.frankenbridge.assistant.SETUP" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <service
+            android:name=".BridgeBrokerService"
+            android:enabled="true"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="com.frankenbridge.assistant.BIND_BRIDGE_BROKER" />
+            </intent-filter>
+        </service>
+    </application>
+</manifest>

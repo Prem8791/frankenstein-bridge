@@ -1,0 +1,4 @@
+# ProdX file types for neverallow rules.
+type prodx_registry_file, file_type, data_file_type;
+type prodx_observation_queue_file, file_type, data_file_type;
+type prodx_authorization_file, file_type, data_file_type;

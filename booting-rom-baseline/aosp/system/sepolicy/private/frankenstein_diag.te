@@ -1,0 +1,28 @@
+type frankenstein_diag, domain, coredomain;
+type frankenstein_diag_exec, system_file_type, exec_type, file_type;
+
+init_daemon_domain(frankenstein_diag)
+binder_use(frankenstein_diag)
+add_service(frankenstein_diag, frankenstein_diag_service)
+
+allow frankenstein_diag self:process { fork sigchld };
+allow frankenstein_diag self:fifo_file { create read write getattr ioctl };
+allow frankenstein_diag proc_filesystems:file r_file_perms;
+allow frankenstein_diag proc_stat:file r_file_perms;
+allow frankenstein_diag proc_uptime:file r_file_perms;
+allow frankenstein_diag sysfs_fs_f2fs:file r_file_perms;
+allow frankenstein_diag pstorefs:dir r_dir_perms;
+allow frankenstein_diag pstorefs:file r_file_perms;
+allow frankenstein_diag tombstone_data_file:dir r_dir_perms;
+allow frankenstein_diag tombstone_data_file:file r_file_perms;
+allow frankenstein_diag anr_data_file:dir r_dir_perms;
+allow frankenstein_diag anr_data_file:file r_file_perms;
+allow frankenstein_diag cache_file:dir r_dir_perms;
+allow frankenstein_diag cache_file:file r_file_perms;
+get_prop(frankenstein_diag, system_prop)
+get_prop(frankenstein_diag, boot_status_prop)
+get_prop(frankenstein_diag, build_prop)
+
+neverallow frankenstein_diag { app_data_file privapp_data_file }:dir_file_class_set *;
+neverallow frankenstein_diag keystore_data_file:dir_file_class_set *;
+neverallow frankenstein_diag self:capability { sys_admin sys_module sys_ptrace };

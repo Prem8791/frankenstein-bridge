@@ -1,0 +1,5 @@
+# ProdX service domains.
+type prodx_broker, domain, prodx_domain;
+type prodx_audit, domain, prodx_domain;
+type prodx_observation, domain, prodx_domain;
+type prodx_extension, domain, prodx_domain;

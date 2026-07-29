@@ -1,0 +1,3 @@
+frameworks/base/core/java/com/android/internal/os/frankenstein/FrankensteinBridgeResult.aidl
+frameworks/base/core/java/com/android/internal/os/frankenstein/FrankensteinBridgeResult.java
+frameworks/base/core/java/com/android/internal/os/frankenstein/IFrankensteinBridgeService.aidl

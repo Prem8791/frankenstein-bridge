@@ -1,0 +1,11 @@
+type frankenstein_diag_service, service_manager_type;
+
+# The platform-signed broker remains in platform_app so it retains the normal
+# framework capabilities of a platform application. The bridge service still
+# enforces its signature permission at the Binder boundary.
+allow platform_app frankenstein_service:service_manager find;
+neverallow { appdomain -platform_app } frankenstein_service:service_manager find;
+
+allow system_server frankenstein_diag_service:service_manager find;
+allow system_server frankenstein_diag:binder call;
+allow frankenstein_diag system_server:binder transfer;

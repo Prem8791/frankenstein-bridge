@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<permissions>
+    <permission name="android.permission.PRODX_AUTHORITY">
+        <group gid="none" />
+    </permission>
+    <permission name="android.permission.PRODX_BROKER">
+        <group gid="none" />
+    </permission>
+    <permission name="android.permission.PRODX_AUDIT_READ">
+        <group gid="none" />
+    </permission>
+    <permission name="android.permission.PRODX_ADMIN">
+        <group gid="none" />
+    </permission>
+    <permission name="android.permission.PRODX_CONFIRMATION">
+        <group gid="none" />
+    </permission>
+</permissions>
