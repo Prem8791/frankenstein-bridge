@@ -3,7 +3,6 @@ package com.frankenbridge.assistant;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothManager;
 import android.content.Context;
-import android.content.Intent;
 import android.net.wifi.WifiManager;
 import android.os.SystemClock;
 import android.provider.Settings;
@@ -84,31 +83,33 @@ final class RestrictedDeviceController {
     }
 
     BrokerActionResult goHome() {
-        try {
-            Intent intent = new Intent(Intent.ACTION_MAIN)
-                    .addCategory(Intent.CATEGORY_HOME)
-                    .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-            mContext.startActivity(intent);
-            return result(BrokerActionResult.STATUS_OK, "Going home.");
-        } catch (RuntimeException e) {
-            return result(BrokerActionResult.STATUS_INTERNAL_ERROR,
-                    "Could not open the home screen.");
-        }
+        return injectNavigationKey(
+                NavigationKeyEvents.homeKeyCode(),
+                "Going home.",
+                "Could not perform global Home navigation.");
     }
 
     BrokerActionResult goBack() {
+        return injectNavigationKey(
+                NavigationKeyEvents.backKeyCode(),
+                "Going back.",
+                "Could not perform global Back navigation.");
+    }
+
+    private BrokerActionResult injectNavigationKey(
+            int keyCode, String successMessage, String failureMessage) {
         try {
             long now = SystemClock.uptimeMillis();
-            KeyEvent down = new KeyEvent(now, now, KeyEvent.ACTION_DOWN, KeyEvent.KEYCODE_BACK, 0);
-            KeyEvent up = new KeyEvent(now, now, KeyEvent.ACTION_UP, KeyEvent.KEYCODE_BACK, 0);
+            KeyEvent down = new KeyEvent(now, now, KeyEvent.ACTION_DOWN, keyCode, 0);
+            KeyEvent up = new KeyEvent(now, now, KeyEvent.ACTION_UP, keyCode, 0);
             if (!injectInputEvent(down) || !injectInputEvent(up)) {
                 return result(BrokerActionResult.STATUS_INTERNAL_ERROR,
-                        "Android rejected the Back key event.");
+                        "Android rejected the navigation key event.");
             }
-            return result(BrokerActionResult.STATUS_OK, "Going back.");
+            return result(BrokerActionResult.STATUS_OK, successMessage);
         } catch (ReflectiveOperationException | RuntimeException e) {
             return result(BrokerActionResult.STATUS_INTERNAL_ERROR,
-                    "Could not perform global Back navigation.");
+                    failureMessage);
         }
     }
 
