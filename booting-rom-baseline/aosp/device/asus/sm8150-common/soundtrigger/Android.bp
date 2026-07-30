@@ -1,0 +1,19 @@
+cc_binary {
+    name: "android.hardware.soundtrigger@2.3-service.i001d",
+    vendor: true,
+    relative_install_path: "hw",
+    compile_multilib: "32",
+    init_rc: ["android.hardware.soundtrigger@2.3-service.i001d.rc"],
+    srcs: ["service.cpp"],
+    cflags: [
+        "-Wall",
+        "-Wextra",
+        "-Werror",
+    ],
+    shared_libs: [
+        "android.hardware.soundtrigger@2.3",
+        "libhidlbase",
+        "liblog",
+        "libutils",
+    ],
+}

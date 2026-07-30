@@ -1,0 +1,8 @@
+service vendor.soundtrigger-hal-legacy /vendor/bin/hw/android.hardware.soundtrigger@2.3-service.i001d
+    class hal
+    user audioserver
+    group audio camera drmrpc inet media mediadrm net_bt net_bt_admin net_bw_acct wakelock
+    capabilities BLOCK_SUSPEND
+    interface android.hardware.soundtrigger@2.3::ISoundTriggerHw default
+    ioprio rt 4
+    task_profiles ProcessCapacityHigh HighPerformance

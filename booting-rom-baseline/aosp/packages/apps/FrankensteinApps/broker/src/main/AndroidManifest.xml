@@ -13,19 +13,6 @@
         android:allowBackup="false"
         android:label="Frankenstein Broker"
         android:supportsRtl="true">
-        <activity
-            android:name=".BrokerSetupActivity"
-            android:exported="true"
-            android:label="Broker Permissions">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-            <intent-filter>
-                <action android:name="com.frankenbridge.assistant.SETUP" />
-                <category android:name="android.intent.category.DEFAULT" />
-            </intent-filter>
-        </activity>
         <service
             android:name=".BridgeBrokerService"
             android:enabled="true"

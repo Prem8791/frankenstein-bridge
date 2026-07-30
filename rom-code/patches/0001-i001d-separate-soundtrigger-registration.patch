@@ -1,0 +1,28 @@
+From: Frankenstein ROM integration
+Subject: [PATCH] audio: defer SoundTrigger registration to legacy service
+
+The I001D product enables
+ro.vendor.audio.soundtrigger.separate_service because its Qualcomm
+SoundTrigger implementation and libsmwrapper support library are 32-bit while
+the boot-critical combined audio service must remain 64-bit.
+
+--- a/audio/common/all-versions/default/service/service.cpp
++++ b/audio/common/all-versions/default/service/service.cpp
+@@
+     };
+     // clang-format on
++
++    const bool useSeparateSoundTriggerService = property_get_bool(
++            "ro.vendor.audio.soundtrigger.separate_service", false);
+
+     for (const auto& listIter : mandatoryInterfaces) {
+@@
+     for (const auto& listIter : optionalInterfaces) {
+         auto iter = listIter.begin();
+         const std::string& interfaceFamilyName = *iter++;
++        if (useSeparateSoundTriggerService && interfaceFamilyName == "Soundtrigger API") {
++            ALOGI("Skipping SoundTrigger registration; using separate legacy service");
++            continue;
++        }
+         ALOGW_IF(!registerPassthroughServiceImplementations(iter, listIter.end()),
+                  "Could not register %s", interfaceFamilyName.c_str());
